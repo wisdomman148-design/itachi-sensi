@@ -1,135 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <script src="https://cdn.counter.dev/script.js" data-id="9dd0c5f7-1514-48eb-8662-0fced5d6d516" data-utcoffset="1"></script>
-  <title>Itachi Sensi Generator</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Itachi Sensi Generator PRO</title>
 
   <style>
+    *{box-sizing:border-box;}
 
     body{
       margin:0;
-      font-family:Arial, sans-serif;
-      background:#080812;
+      font-family:Arial,sans-serif;
+      background:#04040d;
       color:white;
       overflow-x:hidden;
     }
 
+    canvas{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+      radial-gradient(circle at top left,rgba(255,61,129,0.22),transparent 32%),
+      radial-gradient(circle at bottom right,rgba(0,204,255,0.22),transparent 32%),
+      linear-gradient(135deg,#050510,#111126,#09091a);
+      z-index:-2;
+    }
+
     .container{
-      max-width:1100px;
+      max-width:1150px;
       margin:auto;
-      padding:30px;
+      padding:25px;
     }
 
     .hero{
       text-align:center;
-      padding:30px 10px;
+      padding:40px 10px 20px;
     }
 
     .profile-pic{
-      width:140px;
-      height:140px;
+      width:150px;
+      height:150px;
       border-radius:50%;
       object-fit:cover;
       border:4px solid #ff3d81;
-      box-shadow:
-      0 0 15px #ff3d81,
-      0 0 35px #6a5cff,
-      0 0 60px #00ccff;
-      margin-bottom:20px;
+      box-shadow:0 0 20px #ff3d81,0 0 40px #6a5cff,0 0 90px #00ccff;
       animation:glow 2s infinite alternate;
     }
 
     @keyframes glow{
-
-      from{
-        box-shadow:
-        0 0 10px #ff3d81,
-        0 0 25px #6a5cff,
-        0 0 40px #00ccff;
-      }
-
-      to{
-        box-shadow:
-        0 0 20px #ff3d81,
-        0 0 45px #6a5cff,
-        0 0 80px #00ccff;
-      }
-
+      from{box-shadow:0 0 10px #ff3d81,0 0 25px #6a5cff,0 0 60px #00ccff;}
+      to{box-shadow:0 0 25px #ff3d81,0 0 50px #6a5cff,0 0 100px #00ccff;}
     }
 
     h1{
       font-size:55px;
-      margin:10px 0;
-      text-align:center;
+      margin:18px 0 12px;
+      line-height:1;
     }
 
     .highlight{
-      color:#ff7a18;
+      background:linear-gradient(90deg,#ff7a18,#ff3d81,#00ccff);
+      -webkit-background-clip:text;
+      color:transparent;
     }
 
     .tagline{
-      color:#bdbde8;
+      color:#cfcff7;
       font-size:18px;
-      text-align:center;
+      max-width:760px;
+      margin:auto;
+      line-height:1.6;
     }
 
     .box{
-      background:#151527;
+      background:rgba(15,15,28,0.9);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:26px;
       padding:25px;
-      border-radius:20px;
       margin-top:25px;
-      box-shadow:0 0 25px rgba(255,122,24,0.2);
+      backdrop-filter:blur(12px);
+      box-shadow:0 0 25px rgba(255,122,24,0.12);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      margin-top:25px;
+    }
+
+    input,select{
+      width:100%;
+      padding:15px;
+      margin:10px 0;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.08);
+      background:#202037;
+      color:white;
+      font-size:16px;
+      outline:none;
+    }
+
+    input:focus,select:focus{
+      border-color:#ff3d81;
+      box-shadow:0 0 15px rgba(255,61,129,0.35);
     }
 
     button{
       background:linear-gradient(90deg,#ff7a18,#ff3d81);
       color:white;
       border:none;
-      padding:14px 22px;
-      border-radius:12px;
+      padding:15px 22px;
+      border-radius:15px;
+      font-size:16px;
       font-weight:bold;
       cursor:pointer;
-      margin:8px;
-      font-size:16px;
-      transition:0.3s;
+      transition:0.25s;
+      margin-top:10px;
+      margin-right:8px;
     }
 
     button:hover{
-      transform:scale(1.05);
-      box-shadow:0 0 15px rgba(255,61,129,0.6);
+      transform:translateY(-2px) scale(1.03);
+      box-shadow:0 0 20px rgba(255,61,129,0.7);
     }
 
-    input,
-    select{
-      width:100%;
-      padding:14px;
-      margin:10px 0;
-      border-radius:12px;
-      border:none;
+    .secondary-btn{
       background:#24243b;
-      color:white;
-      font-size:16px;
-      box-sizing:border-box;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .chip-container{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:15px;
+    }
+
+    .chip{
+      background:#24243b;
+      padding:10px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      transition:0.25s;
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .chip:hover{
+      background:#ff3d81;
+      transform:scale(1.05);
     }
 
     .hidden{
       display:none;
-    }
-
-    .result{
-      margin-top:20px;
-      background:#0d0d18;
-      padding:20px;
-      border-radius:15px;
-      line-height:1.8;
-      font-size:18px;
-    }
-
-    .error{
-      color:#ff4d4d;
-      font-weight:bold;
-      display:none;
-      margin-top:10px;
     }
 
     .generator{
@@ -148,243 +181,572 @@
     }
 
     @keyframes fadeOut{
-
       to{
         opacity:0;
         transform:scale(0.92);
       }
-
     }
 
+    .error{
+      display:none;
+      color:#ff6b6b;
+      font-weight:bold;
+      margin-top:10px;
+    }
+
+    .result-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px;
+      margin-top:20px;
+    }
+
+    .card{
+      background:#0d0d18;
+      border-radius:20px;
+      padding:20px;
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 0 15px rgba(0,204,255,0.08);
+      transition:0.25s;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 0 22px rgba(255,61,129,0.25);
+    }
+
+    .card span{
+      color:#aaaada;
+      font-size:14px;
+    }
+
+    .card h3{
+      font-size:34px;
+      margin:10px 0 0;
+    }
+
+    .device-summary{
+      margin-top:20px;
+      background:#0d0d18;
+      padding:18px;
+      border-radius:18px;
+      line-height:1.7;
+      border-left:4px solid #ff3d81;
+    }
+
+    .premium{
+      background:linear-gradient(135deg,rgba(255,122,24,0.14),rgba(0,204,255,0.12));
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .live-feed{
+      max-height:220px;
+      overflow:hidden;
+    }
+
+    .feed-item{
+      background:#10101c;
+      padding:12px;
+      border-radius:14px;
+      margin-top:10px;
+      color:#dcdcff;
+      font-size:14px;
+      border:1px solid rgba(255,255,255,0.06);
+      animation:feedIn 0.4s ease;
+    }
+
+    @keyframes feedIn{
+      from{opacity:0;transform:translateY(-8px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    .online-dot{
+      display:inline-block;
+      width:10px;
+      height:10px;
+      background:#00ff88;
+      border-radius:50%;
+      box-shadow:0 0 12px #00ff88;
+      margin-right:8px;
+    }
+
+    .ai-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(2,2,10,0.92);
+      backdrop-filter:blur(14px);
+      z-index:9999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .ai-panel{
+      width:min(560px,100%);
+      background:rgba(15,15,28,0.95);
+      border:1px solid rgba(0,204,255,0.3);
+      border-radius:28px;
+      padding:30px;
+      text-align:center;
+      box-shadow:0 0 50px rgba(0,204,255,0.24);
+    }
+
+    .ai-ring{
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      border:6px solid rgba(255,255,255,0.08);
+      border-top-color:#00ccff;
+      border-right-color:#ff3d81;
+      margin:0 auto 20px;
+      animation:spin 1s linear infinite;
+    }
+
+    @keyframes spin{
+      to{transform:rotate(360deg);}
+    }
+
+    .ai-text{
+      color:#00ccff;
+      font-weight:bold;
+      font-size:18px;
+      margin-bottom:14px;
+    }
+
+    .ai-percent{
+      font-size:42px;
+      font-weight:bold;
+      margin:12px 0;
+    }
+
+    .loader-bar{
+      width:100%;
+      height:10px;
+      background:#24243b;
+      border-radius:999px;
+      overflow:hidden;
+      margin-top:18px;
+    }
+
+    .loader-fill{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,#00ccff,#ff3d81,#ff7a18);
+    }
+
+    .loader-fill.run{
+      animation:load 3s forwards;
+    }
+
+    @keyframes load{
+      to{width:100%;}
+    }
+
+    details{
+      background:#10101c;
+      border-radius:14px;
+      padding:14px;
+      margin-top:10px;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+
+    summary{
+      cursor:pointer;
+      font-weight:bold;
+    }
+
+    details p{
+      color:#cfcff7;
+      line-height:1.6;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px 10px 60px;
+      color:#bdbde8;
+      font-size:14px;
+    }
+
+    @media(max-width:850px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .result-grid{
+        grid-template-columns:1fr;
+      }
+
+      h1{
+        font-size:40px;
+      }
+
+      .profile-pic{
+        width:120px;
+        height:120px;
+      }
+
+      .container{
+        padding:15px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
+<canvas id="particles"></canvas>
+
+<div class="ai-overlay" id="aiOverlay">
+  <div class="ai-panel">
+    <div class="ai-ring"></div>
+    <div class="ai-text" id="aiText">AI scanning device...</div>
+    <div class="ai-percent" id="aiPercent">0%</div>
+    <div class="loader-bar">
+      <div class="loader-fill" id="loaderFill"></div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
 
   <div class="hero">
+    <img src="itachi profile.jpeg" class="profile-pic">
 
-    <img
-      src="itachi profile.jpeg"
-      class="profile-pic"
-    >
-
-    <h1>
-      Itachi
-      <span class="highlight">Sensi Generator</span>
-    </h1>
+    <h1>Itachi <span class="highlight">Sensi Generator PRO</span></h1>
 
     <p class="tagline">
-      Comment your device on TikTok and unlock your cracked Free Fire sensi.
+      AI-style Free Fire sensitivity generator with voice, live activity, device checking, and premium settings.
     </p>
-
   </div>
-
-  <!-- VERIFY -->
 
   <div class="box" id="verifyBox">
-
     <h2>Verification Required</h2>
-
-    <p>
-      Step 1: Open my TikTok profile and comment your device name on my recent post.
-    </p>
-
-    <p>
-      Step 2: Come back here and click “I Commented”.
-    </p>
+    <p>Step 1: Open my TikTok profile and comment your device name on my recent post.</p>
+    <p>Step 2: Come back here and click “I Commented”.</p>
 
     <a href="https://www.tiktok.com/@itachih0i11" target="_blank">
-
-      <button>
-        Open TikTok Profile
-      </button>
-
+      <button>Open TikTok Profile</button>
     </a>
 
-    <button onclick="unlockGenerator()">
-      I Commented ✅
-    </button>
-
+    <button onclick="unlockGenerator()">I Commented ✅</button>
   </div>
 
-  <!-- GENERATOR -->
+  <div class="generator hidden" id="generatorBox">
 
-  <div class="box generator hidden" id="generatorBox">
+    <div class="grid">
+      <div class="box">
+        <h2>Generate Your Sensi</h2>
 
-    <h2>Generate Your Sensi</h2>
+        <select id="platform">
+          <option>Android</option>
+          <option>iPhone / iOS</option>
+          <option>Emulator / BlueStacks</option>
+        </select>
 
-    <select id="platform">
-      <option>Android</option>
-      <option>iPhone / iOS</option>
-    </select>
+        <input list="deviceList" id="device" placeholder="Search/select device e.g. Samsung A15, iPhone 13">
 
-    <input
-      id="device"
-      placeholder="Enter real device e.g. Samsung A15, iPhone 13"
-    >
+        <datalist id="deviceList">
+          <option value="Samsung A15">
+          <option value="Samsung A14">
+          <option value="Samsung S23">
+          <option value="Samsung S24 Ultra">
+          <option value="Tecno Spark 10">
+          <option value="Tecno Camon 20">
+          <option value="Infinix Hot 30">
+          <option value="Infinix Note 30">
+          <option value="Redmi Note 12">
+          <option value="Redmi Note 13">
+          <option value="Poco X3">
+          <option value="Realme C55">
+          <option value="iPhone 11">
+          <option value="iPhone 12">
+          <option value="iPhone 13">
+          <option value="iPhone 14 Pro Max">
+          <option value="iPhone 15 Pro Max">
+          <option value="BlueStacks 5">
+          <option value="MSI App Player">
+          <option value="LDPlayer 9">
+          <option value="MEmu Player">
+        </datalist>
 
-    <select id="ram">
-      <option>2GB RAM</option>
-      <option>4GB RAM</option>
-      <option>6GB RAM</option>
-      <option>8GB+ RAM</option>
-    </select>
+        <select id="ram">
+          <option>2GB RAM</option>
+          <option>4GB RAM</option>
+          <option>6GB RAM</option>
+          <option>8GB+ RAM</option>
+          <option>PC / Emulator</option>
+        </select>
 
-    <select id="style">
-      <option>Balanced</option>
-      <option>Drag Headshot</option>
-      <option>Close Range</option>
-      <option>Long Range</option>
-    </select>
+        <select id="style">
+          <option>Balanced</option>
+          <option>Close Range Headshot</option>
+          <option>Long Range Headshot</option>
+          <option>Drag Headshot</option>
+          <option>Pro Player Mode</option>
+          <option>Emulator Headshot</option>
+        </select>
 
-    <button onclick="generateSensi()">
-      Generate Settings
-    </button>
+        <button onclick="generateSensi()">Generate Settings</button>
 
-    <p class="error" id="errorMsg">
-      Device does not match platform bro.
-    </p>
+        <p class="error" id="errorMsg">Device does not match platform bro.</p>
+      </div>
 
-    <div class="result" id="result">
-      Waiting for device...
+      <div class="box">
+        <h2>Trending Devices</h2>
+
+        <div class="chip-container">
+          <div class="chip" onclick="setDevice('Samsung A15','Android','4GB RAM')">Samsung A15</div>
+          <div class="chip" onclick="setDevice('Tecno Spark 10','Android','4GB RAM')">Tecno Spark 10</div>
+          <div class="chip" onclick="setDevice('Redmi Note 12','Android','6GB RAM')">Redmi Note 12</div>
+          <div class="chip" onclick="setDevice('Infinix Hot 30','Android','8GB+ RAM')">Infinix Hot 30</div>
+          <div class="chip" onclick="setDevice('iPhone 11','iPhone / iOS','4GB RAM')">iPhone 11</div>
+          <div class="chip" onclick="setDevice('iPhone 13','iPhone / iOS','6GB RAM')">iPhone 13</div>
+          <div class="chip" onclick="setDevice('BlueStacks 5','Emulator / BlueStacks','PC / Emulator')">BlueStacks 5</div>
+        </div>
+
+        <div class="box premium">
+          <h3>Premium Look</h3>
+          <p>Generate settings, test them in training ground, then adjust small-small.</p>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2><span class="online-dot"></span><span id="onlineCount">247</span> players online</h2>
+        <div class="live-feed" id="liveFeed"></div>
+      </div>
+
+      <div class="box premium">
+        <h2>Pro Tips</h2>
+        <p id="proTip">Tap below for a random Free Fire tip.</p>
+        <button onclick="showTip()">Show Tip</button>
+      </div>
+    </div>
+
+    <div class="box">
+      <div id="resultArea">
+        <div class="device-summary">Waiting for device...</div>
+      </div>
+    </div>
+
+    <div class="box" id="faqBox">
+      <h2>FAQ</h2>
+
+      <details>
+        <summary>Best sensi for headshot?</summary>
+        <p>High General and Red Dot can help drag headshot, but always test in training ground.</p>
+      </details>
+
+      <details>
+        <summary>Should General be high?</summary>
+        <p>For fast drag, yes. For control, reduce it small-small.</p>
+      </details>
+
+      <details>
+        <summary>Best iPhone sensi?</summary>
+        <p>iPhones usually handle higher sensitivity better, especially iPhone 11 and newer.</p>
+      </details>
+
+      <details>
+        <summary>Best Android sensi?</summary>
+        <p>Depends on RAM and lag. Low-end Android should avoid settings that are too fast.</p>
+      </details>
     </div>
 
   </div>
 
+  <footer>
+    Built for Free Fire players • Follow @itachih0i11 on TikTok
+  </footer>
+
 </div>
 
 <script>
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
 
-  function unlockGenerator(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-    let verifyBox =
-      document.getElementById("verifyBox");
+  let particles = [];
 
-    let generator =
-      document.getElementById("generatorBox");
-
-    verifyBox.classList.add("verifyFade");
-
-    setTimeout(() => {
-
-      verifyBox.style.display = "none";
-
-      generator.classList.remove("hidden");
-
-      setTimeout(() => {
-        generator.classList.add("show");
-      },50);
-
-    },500);
+  for(let i = 0; i < 90; i++){
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 2 + 1,
+      dx: (Math.random() - 0.5) * 0.5,
+      dy: (Math.random() - 0.5) * 0.5
+    });
   }
+
+  function animateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.45)";
+      ctx.fill();
+
+      p.x += p.dx;
+      p.y += p.dy;
+
+      if(p.x < 0 || p.x > canvas.width) p.dx *= -1;
+      if(p.y < 0 || p.y > canvas.height) p.dy *= -1;
+    });
+
+    requestAnimationFrame(animateParticles);
+  }
+
+  animateParticles();
+
+  window.onresize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  };
 
   function random(min,max){
     return Math.floor(Math.random() * (max-min+1)) + min;
   }
 
-  function isRealDevice(device,platform){
+  function unlockGenerator(){
+    let verifyBox = document.getElementById("verifyBox");
+    let generator = document.getElementById("generatorBox");
 
+    verifyBox.classList.add("verifyFade");
+
+    setTimeout(() => {
+      verifyBox.style.display = "none";
+      generator.classList.remove("hidden");
+
+      setTimeout(() => {
+        generator.classList.add("show");
+      },50);
+    },500);
+  }
+
+  function setDevice(d,p,r){
+    document.getElementById("device").value = d;
+    document.getElementById("platform").value = p;
+    document.getElementById("ram").value = r;
+  }
+
+  function isRealDevice(device, platform){
     device = device.toLowerCase().trim();
 
-    const androidBrands = [
-      "samsung",
-      "galaxy",
-      "tecno",
-      "infinix",
-      "redmi",
-      "xiaomi",
-      "oppo",
-      "vivo",
-      "huawei",
-      "honor",
-      "realme",
-      "oneplus",
-      "pixel",
-      "google pixel",
-      "motorola",
-      "moto",
-      "nokia",
-      "sony",
-      "asus",
-      "lenovo",
-      "poco",
-      "nothing"
+    const android = [
+      "samsung","galaxy","tecno","infinix","redmi","xiaomi","oppo","vivo","huawei","honor",
+      "realme","oneplus","pixel","google pixel","motorola","moto","nokia","sony","asus","lenovo","poco","nothing"
     ];
 
-    const iosBrands = [
-      "iphone",
-      "ipad"
-    ];
+    const ios = ["iphone","ipad"];
+    const emu = ["bluestacks","msi app player","ldplayer","memu","emulator"];
+    const words = ["pro","max","plus","ultra","note","lite","neo","hot","spark","camon","phantom"];
 
-    const modelWords = [
-      "pro",
-      "max",
-      "plus",
-      "ultra",
-      "note",
-      "lite",
-      "prime",
-      "neo",
-      "hot",
-      "spark",
-      "camon",
-      "phantom"
-    ];
-
-    let hasNumber = /\d/.test(device);
-
-    let hasModelWord = modelWords.some(
-      word => device.includes(word)
-    );
-
-    let longEnough = device.length >= 6;
+    let num = /\d/.test(device);
+    let word = words.some(w => device.includes(w));
+    let long = device.length >= 6;
 
     if(platform === "Android"){
-
-      let validAndroid = androidBrands.some(
-        brand => device.includes(brand)
-      );
-
-      return validAndroid &&
-             longEnough &&
-             (hasNumber || hasModelWord);
+      return android.some(b => device.includes(b)) && long && (num || word);
     }
 
     if(platform === "iPhone / iOS"){
+      return ios.some(b => device.includes(b)) && long && num;
+    }
 
-      let validIOS = iosBrands.some(
-        brand => device.includes(brand)
-      );
-
-      return validIOS &&
-             longEnough &&
-             hasNumber;
+    if(platform === "Emulator / BlueStacks"){
+      return emu.some(b => device.includes(b)) && long;
     }
 
     return false;
   }
 
+  function speak(text){
+    if("speechSynthesis" in window){
+      let utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.88;
+      utterance.pitch = 0.85;
+      utterance.volume = 1;
+
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utterance);
+    }
+  }
+
+  function showAIOverlay(done){
+    const overlay = document.getElementById("aiOverlay");
+    const aiText = document.getElementById("aiText");
+    const aiPercent = document.getElementById("aiPercent");
+    const loaderFill = document.getElementById("loaderFill");
+
+    const steps = [
+      "AI scanning device...",
+      "Checking RAM and FPS stability...",
+      "Calibrating red dot accuracy...",
+      "Optimizing drag headshot control...",
+      "Building pro sensitivity profile..."
+    ];
+
+    overlay.style.display = "flex";
+
+    loaderFill.classList.remove("run");
+    void loaderFill.offsetWidth;
+    loaderFill.classList.add("run");
+
+    let percent = 0;
+    let stepIndex = 0;
+
+    aiText.innerText = steps[0];
+    aiPercent.innerText = "0%";
+
+    let timer = setInterval(() => {
+      percent += random(4,9);
+      if(percent > 100) percent = 100;
+
+      aiPercent.innerText = percent + "%";
+
+      if(percent > 20 && stepIndex === 0){
+        stepIndex = 1;
+        aiText.innerText = steps[1];
+      }
+
+      if(percent > 45 && stepIndex === 1){
+        stepIndex = 2;
+        aiText.innerText = steps[2];
+      }
+
+      if(percent > 70 && stepIndex === 2){
+        stepIndex = 3;
+        aiText.innerText = steps[3];
+      }
+
+      if(percent > 90 && stepIndex === 3){
+        stepIndex = 4;
+        aiText.innerText = steps[4];
+      }
+
+      if(percent >= 100){
+        clearInterval(timer);
+
+        setTimeout(() => {
+          overlay.style.display = "none";
+          done();
+          speak("Sensi generated. Try your settings in training ground.");
+        },500);
+      }
+    },180);
+  }
+
   function generateSensi(){
+    let d = document.getElementById("device").value;
+    let p = document.getElementById("platform").value;
+    let r = document.getElementById("ram").value;
+    let s = document.getElementById("style").value;
+    let errorMsg = document.getElementById("errorMsg");
 
-    let deviceInput =
-      document.getElementById("device").value;
-
-    let platform =
-      document.getElementById("platform").value;
-
-    let ram =
-      document.getElementById("ram").value;
-
-    let style =
-      document.getElementById("style").value;
-
-    let errorMsg =
-      document.getElementById("errorMsg");
-
-    if(!isRealDevice(deviceInput,platform)){
-
+    if(!isRealDevice(d,p)){
       errorMsg.style.display = "block";
       return;
     }
@@ -392,56 +754,130 @@
     errorMsg.style.display = "none";
 
     let general = random(150,200);
-    let redDot = random(140,190);
-    let scope2x = random(130,180);
-    let scope4x = random(120,170);
+    let red = random(140,190);
+    let two = random(130,180);
+    let four = random(120,170);
     let sniper = random(60,120);
-    let freeLook = random(100,180);
+    let free = random(100,180);
 
-    if(style === "Drag Headshot"){
-
-      general = random(180,200);
-      redDot = random(170,195);
-      scope2x = random(160,185);
-      scope4x = random(145,175);
+    if(s === "Close Range Headshot"){
+      general = random(176,200);
+      red = random(168,195);
+      two = random(145,178);
+      four = random(125,165);
+      sniper = random(65,105);
+      free = random(120,180);
     }
 
-    if(style === "Close Range"){
-
-      general = random(170,200);
-      redDot = random(165,190);
-      scope2x = random(145,175);
-    }
-
-    if(style === "Long Range"){
-
-      general = random(140,175);
-      redDot = random(130,165);
-      scope2x = random(120,155);
-      scope4x = random(135,175);
+    if(s === "Long Range Headshot"){
+      general = random(145,178);
+      red = random(135,168);
+      two = random(125,158);
+      four = random(140,180);
       sniper = random(90,130);
+      free = random(100,160);
     }
 
-    document.getElementById("result").innerHTML = `
+    if(s === "Drag Headshot"){
+      general = random(182,200);
+      red = random(170,195);
+      two = random(160,185);
+      four = random(145,175);
+    }
 
-      <b>Device:</b> ${deviceInput}<br>
-      <b>Platform:</b> ${platform}<br>
-      <b>RAM:</b> ${ram}<br>
-      <b>Style:</b> ${style}<br><br>
+    if(s === "Pro Player Mode"){
+      general = random(188,200);
+      red = random(178,198);
+      two = random(170,190);
+      four = random(150,180);
+      sniper = random(80,120);
+      free = random(150,200);
+    }
 
-      <b>General:</b> ${general}<br>
-      <b>Red Dot:</b> ${redDot}<br>
-      <b>2x Scope:</b> ${scope2x}<br>
-      <b>4x Scope:</b> ${scope4x}<br>
-      <b>Sniper:</b> ${sniper}<br>
-      <b>Free Look:</b> ${freeLook}<br><br>
+    if(s === "Emulator Headshot" || p === "Emulator / BlueStacks"){
+      general = random(85,100);
+      red = random(80,95);
+      two = random(75,90);
+      four = random(65,85);
+      sniper = random(50,75);
+      free = random(70,95);
+    }
 
-      <b>Tip:</b> Try it in training ground first and adjust small-small.
+    showAIOverlay(() => {
+      document.getElementById("resultArea").innerHTML = `
+        <div class="device-summary">
+          <b>Device:</b> ${d}<br>
+          <b>Platform:</b> ${p}<br>
+          <b>RAM:</b> ${r}<br>
+          <b>Style:</b> ${s}<br>
+          <b>AI Score:</b> Headshot Accuracy Potential: ${random(82,98)}%
+        </div>
 
-    `;
+        <div class="result-grid">
+          <div class="card"><span>General</span><h3>${general}</h3></div>
+          <div class="card"><span>Red Dot</span><h3>${red}</h3></div>
+          <div class="card"><span>2x Scope</span><h3>${two}</h3></div>
+          <div class="card"><span>4x Scope</span><h3>${four}</h3></div>
+          <div class="card"><span>Sniper</span><h3>${sniper}</h3></div>
+          <div class="card"><span>Free Look</span><h3>${free}</h3></div>
+        </div>
+
+        <div class="device-summary">
+          <b>Recommendation:</b> Test these settings in training ground first and adjust small-small.
+        </div>
+      `;
+
+      addFeed(`${d} player generated ${s} sensi`);
+    });
   }
 
+  const tips = [
+    "Train red dot drag for 10 minutes before ranked.",
+    "If aim shakes too much, lower General by 5.",
+    "Low-end Android should avoid max settings.",
+    "Use training ground before copying any sensi.",
+    "For close range, Red Dot matters a lot.",
+    "If your screen feels too fast, reduce 2x and 4x first."
+  ];
+
+  function showTip(){
+    document.getElementById("proTip").innerText = tips[random(0,tips.length-1)];
+  }
+
+  const feedMessages = [
+    "Samsung A15 user generated Close Range Headshot sensi",
+    "iPhone 13 player generated Pro Player Mode",
+    "Redmi Note 12 user generated Long Range Headshot sensi",
+    "Tecno Spark 10 player generated Drag Headshot settings",
+    "BlueStacks 5 user generated Emulator Headshot settings",
+    "iPhone 11 player optimized red dot control"
+  ];
+
+  function addFeed(text){
+    let item = document.createElement("div");
+    item.className = "feed-item";
+    item.innerText = text;
+
+    let liveFeed = document.getElementById("liveFeed");
+    liveFeed.prepend(item);
+
+    if(liveFeed.children.length > 6){
+      liveFeed.removeChild(liveFeed.lastChild);
+    }
+  }
+
+  function startLiveFeed(){
+    feedMessages.forEach(msg => addFeed(msg));
+
+    setInterval(() => {
+      addFeed(feedMessages[random(0,feedMessages.length-1)]);
+      document.getElementById("onlineCount").innerText = random(180,520);
+    },3500);
+  }
+
+  startLiveFeed();
 </script>
 
 </body>
 </html>
+
