@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Itachi Sensi Generator</title>
+
+  <style>
+
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:#080812;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:auto;
+      padding:30px;
+    }
+
+    .hero{
+      text-align:center;
+      padding:30px 10px;
+    }
+
+    .profile-pic{
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      object-fit:cover;
+      border:4px solid #ff3d81;
+      box-shadow:
+      0 0 15px #ff3d81,
+      0 0 35px #6a5cff,
+      0 0 60px #00ccff;
+      margin-bottom:20px;
+      animation:glow 2s infinite alternate;
+    }
+
+    @keyframes glow{
+
+      from{
+        box-shadow:
+        0 0 10px #ff3d81,
+        0 0 25px #6a5cff,
+        0 0 40px #00ccff;
+      }
+
+      to{
+        box-shadow:
+        0 0 20px #ff3d81,
+        0 0 45px #6a5cff,
+        0 0 80px #00ccff;
+      }
+
+    }
+
+    h1{
+      font-size:55px;
+      margin:10px 0;
+      text-align:center;
+    }
+
+    .highlight{
+      color:#ff7a18;
+    }
+
+    .tagline{
+      color:#bdbde8;
+      font-size:18px;
+      text-align:center;
+    }
+
+    .box{
+      background:#151527;
+      padding:25px;
+      border-radius:20px;
+      margin-top:25px;
+      box-shadow:0 0 25px rgba(255,122,24,0.2);
+    }
+
+    button{
+      background:linear-gradient(90deg,#ff7a18,#ff3d81);
+      color:white;
+      border:none;
+      padding:14px 22px;
+      border-radius:12px;
+      font-weight:bold;
+      cursor:pointer;
+      margin:8px;
+      font-size:16px;
+      transition:0.3s;
+    }
+
+    button:hover{
+      transform:scale(1.05);
+      box-shadow:0 0 15px rgba(255,61,129,0.6);
+    }
+
+    input,
+    select{
+      width:100%;
+      padding:14px;
+      margin:10px 0;
+      border-radius:12px;
+      border:none;
+      background:#24243b;
+      color:white;
+      font-size:16px;
+      box-sizing:border-box;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .result{
+      margin-top:20px;
+      background:#0d0d18;
+      padding:20px;
+      border-radius:15px;
+      line-height:1.8;
+      font-size:18px;
+    }
+
+    .error{
+      color:#ff4d4d;
+      font-weight:bold;
+      display:none;
+      margin-top:10px;
+    }
+
+    .generator{
+      opacity:0;
+      transform:translateY(40px);
+      transition:0.6s;
+    }
+
+    .generator.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .verifyFade{
+      animation:fadeOut 0.5s forwards;
+    }
+
+    @keyframes fadeOut{
+
+      to{
+        opacity:0;
+        transform:scale(0.92);
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="hero">
+
+    <img
+      src="itachi profile.jpeg"
+      class="profile-pic"
+    >
+
+    <h1>
+      Itachi
+      <span class="highlight">Sensi Generator</span>
+    </h1>
+
+    <p class="tagline">
+      Comment your device on TikTok and unlock your cracked Free Fire sensi.
+    </p>
+
+  </div>
+
+  <!-- VERIFY -->
+
+  <div class="box" id="verifyBox">
+
+    <h2>Verification Required</h2>
+
+    <p>
+      Step 1: Open my TikTok profile and comment your device name on my recent post.
+    </p>
+
+    <p>
+      Step 2: Come back here and click “I Commented”.
+    </p>
+
+    <a href="https://www.tiktok.com/@itachih0i11" target="_blank">
+
+      <button>
+        Open TikTok Profile
+      </button>
+
+    </a>
+
+    <button onclick="unlockGenerator()">
+      I Commented ✅
+    </button>
+
+  </div>
+
+  <!-- GENERATOR -->
+
+  <div class="box generator hidden" id="generatorBox">
+
+    <h2>Generate Your Sensi</h2>
+
+    <select id="platform">
+      <option>Android</option>
+      <option>iPhone / iOS</option>
+    </select>
+
+    <input
+      id="device"
+      placeholder="Enter real device e.g. Samsung A15, iPhone 13"
+    >
+
+    <select id="ram">
+      <option>2GB RAM</option>
+      <option>4GB RAM</option>
+      <option>6GB RAM</option>
+      <option>8GB+ RAM</option>
+    </select>
+
+    <select id="style">
+      <option>Balanced</option>
+      <option>Drag Headshot</option>
+      <option>Close Range</option>
+      <option>Long Range</option>
+    </select>
+
+    <button onclick="generateSensi()">
+      Generate Settings
+    </button>
+
+    <p class="error" id="errorMsg">
+      Device does not match platform bro.
+    </p>
+
+    <div class="result" id="result">
+      Waiting for device...
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  function unlockGenerator(){
+
+    let verifyBox =
+      document.getElementById("verifyBox");
+
+    let generator =
+      document.getElementById("generatorBox");
+
+    verifyBox.classList.add("verifyFade");
+
+    setTimeout(() => {
+
+      verifyBox.style.display = "none";
+
+      generator.classList.remove("hidden");
+
+      setTimeout(() => {
+        generator.classList.add("show");
+      },50);
+
+    },500);
+  }
+
+  function random(min,max){
+    return Math.floor(Math.random() * (max-min+1)) + min;
+  }
+
+  function isRealDevice(device,platform){
+
+    device = device.toLowerCase().trim();
+
+    const androidBrands = [
+      "samsung",
+      "galaxy",
+      "tecno",
+      "infinix",
+      "redmi",
+      "xiaomi",
+      "oppo",
+      "vivo",
+      "huawei",
+      "honor",
+      "realme",
+      "oneplus",
+      "pixel",
+      "google pixel",
+      "motorola",
+      "moto",
+      "nokia",
+      "sony",
+      "asus",
+      "lenovo",
+      "poco",
+      "nothing"
+    ];
+
+    const iosBrands = [
+      "iphone",
+      "ipad"
+    ];
+
+    const modelWords = [
+      "pro",
+      "max",
+      "plus",
+      "ultra",
+      "note",
+      "lite",
+      "prime",
+      "neo",
+      "hot",
+      "spark",
+      "camon",
+      "phantom"
+    ];
+
+    let hasNumber = /\d/.test(device);
+
+    let hasModelWord = modelWords.some(
+      word => device.includes(word)
+    );
+
+    let longEnough = device.length >= 6;
+
+    if(platform === "Android"){
+
+      let validAndroid = androidBrands.some(
+        brand => device.includes(brand)
+      );
+
+      return validAndroid &&
+             longEnough &&
+             (hasNumber || hasModelWord);
+    }
+
+    if(platform === "iPhone / iOS"){
+
+      let validIOS = iosBrands.some(
+        brand => device.includes(brand)
+      );
+
+      return validIOS &&
+             longEnough &&
+             hasNumber;
+    }
+
+    return false;
+  }
+
+  function generateSensi(){
+
+    let deviceInput =
+      document.getElementById("device").value;
+
+    let platform =
+      document.getElementById("platform").value;
+
+    let ram =
+      document.getElementById("ram").value;
+
+    let style =
+      document.getElementById("style").value;
+
+    let errorMsg =
+      document.getElementById("errorMsg");
+
+    if(!isRealDevice(deviceInput,platform)){
+
+      errorMsg.style.display = "block";
+      return;
+    }
+
+    errorMsg.style.display = "none";
+
+    let general = random(150,200);
+    let redDot = random(140,190);
+    let scope2x = random(130,180);
+    let scope4x = random(120,170);
+    let sniper = random(60,120);
+    let freeLook = random(100,180);
+
+    if(style === "Drag Headshot"){
+
+      general = random(180,200);
+      redDot = random(170,195);
+      scope2x = random(160,185);
+      scope4x = random(145,175);
+    }
+
+    if(style === "Close Range"){
+
+      general = random(170,200);
+      redDot = random(165,190);
+      scope2x = random(145,175);
+    }
+
+    if(style === "Long Range"){
+
+      general = random(140,175);
+      redDot = random(130,165);
+      scope2x = random(120,155);
+      scope4x = random(135,175);
+      sniper = random(90,130);
+    }
+
+    document.getElementById("result").innerHTML = `
+
+      <b>Device:</b> ${deviceInput}<br>
+      <b>Platform:</b> ${platform}<br>
+      <b>RAM:</b> ${ram}<br>
+      <b>Style:</b> ${style}<br><br>
+
+      <b>General:</b> ${general}<br>
+      <b>Red Dot:</b> ${redDot}<br>
+      <b>2x Scope:</b> ${scope2x}<br>
+      <b>4x Scope:</b> ${scope4x}<br>
+      <b>Sniper:</b> ${sniper}<br>
+      <b>Free Look:</b> ${freeLook}<br><br>
+
+      <b>Tip:</b> Try it in training ground first and adjust small-small.
+
+    `;
+  }
+
+</script>
+
+</body>
+</html>
